@@ -1,4 +1,4 @@
-import type {Example, Formatter} from "./types.js";
+import type {CurlyMatch, Example, Formatter} from "./types.js";
 
 export const JS_EXAMPLE_EL_QUERY = 'code[class*="example-javascript"]';
 export const HTML_EXAMPLE_EL_QUERY = 'code[class*="example-html"]';
@@ -59,7 +59,7 @@ export function parseExampleFunction(code: string): Example[] {
     return example;
 }
 
-function countCurly(line) {
+function countCurly(line:string): CurlyMatch {
     const length = line.length;
     const openCurly = length - (line.replaceAll('{','').length);
     const closeCurly = length - (line.replaceAll('}','').length);

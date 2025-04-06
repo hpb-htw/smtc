@@ -30,3 +30,8 @@ export interface Formatter {
      * */
     html(code:string): string
 }
+
+export interface CurlyMatch {
+    openCurly:number,
+    closeCurly:number
+}
