@@ -1,5 +1,14 @@
 import {expect, test} from "vitest";
-import {parseExampleFunction, showExampleCode} from "../lib/zmdc.ts";
+import {
+    HTML_EXAMPLE_EL_QUERY,
+    htmlEscape,
+    JS_EXAMPLE_EL_QUERY,
+    parseExampleFunction,
+    showExampleCode
+} from "../lib/zmdc.ts";
+import {JSDOM} from "jsdom";
+import {Example} from "../lib/types";
+
 
 const js = [
     'const metadata = auxiliaryFunction(img);',
@@ -72,4 +81,66 @@ test('parseExampleFunction should recognize more than one demoFunction', () =>{
     const doubleCode = `${code}\n /*some comments*/\n ${code}`;
     const examples = parseExampleFunction(doubleCode);
     expect(examples).toHaveLength(2);
+});
+
+
+test('showExampleCode should insert example code as HTML into container', () => {
+    const container = `
+<div id="demo-1">
+    <pre><code class="example-javascript lang-js"></code></pre>
+    <pre><code class="example-html lang-html"></code></pre>
+</div>    
+    `;
+    const example:Example = {
+        js: (js.join('\n')),
+        html: (html.join('\n')),
+        elId: 'demo-1'
+    }
+    globalThis.document = new JSDOM(container).window.document;
+    showExampleCode(example);
+    const containerEl = globalThis.document.getElementById('demo-1');
+    const jsContainer = containerEl.querySelector(JS_EXAMPLE_EL_QUERY);
+    expect(jsContainer.textContent).toStrictEqual(js.join('\n'));
+    const htmlContainer = containerEl.querySelector(HTML_EXAMPLE_EL_QUERY);
+    expect(htmlContainer.textContent).toStrictEqual(html.join('\n'));
+});
+
+test('showExampleCode should throw error when no container is found', () => {
+    const container = `
+<div id="demo-1">
+    <pre><code class="example-javascript lang-js"></code></pre>
+    <pre><code class="example-html lang-html"></code></pre>
+</div>    
+    `;
+    const example:Example = {
+        js: (js.join('\n')),
+        html: (html.join('\n')),
+        elId: 'demo-not-existing'
+    }
+    globalThis.document = new JSDOM(container).window.document;
+    try {
+        showExampleCode(example);
+    } catch (e) {
+        expect(e.message).toContain('Container element with id="demo-not-existing" not found')
+    }
+});
+
+test('showExampleCode should throw error if no js container found', () => {
+    const container = `
+<div id="demo-1">
+    <pre><code class="example-js lang-js"></code></pre>
+    <pre><code class="example-html lang-html"></code></pre>
+</div>    
+    `;
+    const example:Example = {
+        js: (js.join('\n')),
+        html: (html.join('\n')),
+        elId: 'demo-1'
+    }
+    globalThis.document = new JSDOM(container).window.document;
+    try {
+        showExampleCode(example);
+    } catch (e) {
+        expect(e.message).toContain(`does not contain ${JS_EXAMPLE_EL_QUERY}`);
+    }
 });

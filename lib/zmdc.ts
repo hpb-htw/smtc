@@ -3,7 +3,7 @@ import type {Example, Formatter} from "./types.js";
 export const JS_EXAMPLE_EL_QUERY = 'code[class*="example-javascript"]';
 export const HTML_EXAMPLE_EL_QUERY = 'code[class*="example-html"]';
 
-const htmlEscape = (text:string) : string => {
+export const htmlEscape = (text:string) : string => {
     return text.replaceAll("&", "&amp;")
         .replaceAll("<", "&lt;")
         .replaceAll(">", "&gt;")
@@ -48,7 +48,6 @@ export function parseExampleFunction(code: string): Example[] {
             state.closeCurly += closeCurly;
             if (state.openCurly === state.closeCurly) {
                 // reset state
-                console.log(state)
                 state.inFunction = false;
                 state.openCurly = 0;
                 state.closeCurly = 0;
@@ -86,7 +85,7 @@ export function showExampleCode(example:Example, fmt: Formatter = {js:htmlEscape
             throw new Error(`Container id ${elId} does not contain ${JS_EXAMPLE_EL_QUERY} or ${HTML_EXAMPLE_EL_QUERY}`);
         }
     }else {
-        throw new Error(`Container element with id='${elId}' not found`);
+        throw new Error(`Container element with id="${elId}" not found`);
     }
 }
 
