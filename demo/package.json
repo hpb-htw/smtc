@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rm -rf www",
     "dev": "npx vite",
-    "build": "npx vite build; cp README.md www"
+    "build": "npx vite build; cp README.md *.js www"
   },
   "author": "Hong-Phuc Bui",
   "license": "MIT",
