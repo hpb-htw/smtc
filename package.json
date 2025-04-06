@@ -8,7 +8,6 @@
     "test": "npx vitest run --config vitest.config.ts",
     "doc": "npx typedoc --options typedoc.config.js",
     "clean": "rm -rfv dist www coverage smtc*.tgz",
-    "pre-deploy": "",
     "deploy": "cp npmrc.template .npmrc; npm publish"
   },
   "author": "Hong-Phuc Bui",

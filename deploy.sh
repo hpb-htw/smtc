@@ -14,6 +14,7 @@ install() {
 build() {
     npm run clean
     npm run build
+    npm run test
     npm pack
 }
 
