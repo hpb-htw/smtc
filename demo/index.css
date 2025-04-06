@@ -1,0 +1,38 @@
+@import url('./node_modules/@picocss/pico/css/pico.grey.css');
+:root {
+    --pico-font-size: 95%;
+    --pico-spacing: 0.5rem;
+}
+
+/* this rule prevent iPad Safari to bounce the page horizontally */
+html {
+    width  : 100%;
+    border:0;
+    margin:0;
+    padding:0;
+    overflow-x: hidden;
+    position: relative;
+    overscroll-behavior-x:none;
+}
+body {
+    width  : 100%;
+    margin:0;
+    overflow-x: hidden;
+    position: relative;
+    overscroll-behavior-x:none;
+}
+
+a[target="_blank"]:after {
+    content: " ↗";
+    font-family: system-ui, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, Helvetica, Arial, "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+/* sticky footer */
+html,body {
+    height: 100vh;
+}
+
+body>footer {
+    position: sticky;
+    top: 100vh;
+}

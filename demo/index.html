@@ -2,16 +2,53 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="index.css" />
+    <link rel="icon" href="favicon.svg" sizes="48x48" />
     <title>Zeig mir den Code</title>
 </head>
 <body>
+<header class="container">
+    <hgroup>
+        <h1><img src="favicon.svg" width="48px">
+            Zeig mir den Code!
+        </h1>
+        <p>A library to let library-author show demo code directly on browser without copy and paste</p>
+    </hgroup>
+    <nav>
+        <ul></ul>
+        <ul>
+            <li><a href="#install">Install</a></li>
+            <li><a href="#usage">Usage</a></li>
+            <li><a href="https://github.com/hpb-htw/zmdc" target="_blank">Source</a></li>
+        </ul>
+    </nav>
+</header>
+<main class="container">
+    <section id="install">
+        <h3>Install</h3>
+        Install via NPM:
+        <pre><code class="language-bash">npm install zmdc</code></pre>
+        You can use this library as JavaScript (ESM) or Typescript.
+        If you need UMD format, you can compile the TypeScript files by yourself, using your toolchain.
 
-<h1>Zeig mir den Code</h1>
+        <h5>ESM</h5>
+        <pre><code class="language-javascript">import {parseExampleFunction, showExampleCode} from 'node_module/zmdc/dist/zmdc.js'</code></pre>
 
-<footer>
+        <h5>TypeScript</h5>
+        <pre><code class="language-javascript">import {parseExampleFunction, showExampleCode} from 'node_module/zmdc/lib/zmdc.(t|j)s'</code></pre>
+        The extensions depends on your toolchain!
+    </section>
+
+    <section id="usage">
+        <h3>Usage</h3>
+        (TODO)
+    </section>
+</main>
+
+<footer class="container">
     <nav>
         <ul>
-            <li><a href="https://hpb-htw.github.io/zmdc-doc/coverage/">Detail of Coverage</a></li>
+            <li><a href="https://hpb-htw.github.io/zmdc-doc/coverage/" target="_blank">Test Coverage</a></li>
         </ul>
     </nav>
 </footer>
