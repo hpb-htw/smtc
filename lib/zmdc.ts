@@ -1,4 +1,4 @@
-import type {Example} from "./types.js";
+import type {Example, Formatter} from "./types.js";
 
 export const JS_EXAMPLE_EL_QUERY = 'code[class*="example-javascript"]';
 export const HTML_EXAMPLE_EL_QUERY = 'code[class*="example-html"]';
@@ -11,15 +11,77 @@ const htmlEscape = (text:string) : string => {
         .replaceAll("'", "&#39;");
 }
 
-export function showExampleCode(example:Example, jsProcessor=htmlEscape, htmlProcessor=htmlEscape) {
+/**
+ * recognize demo functions and parse them to an Array of Example {@see Example}.
+ * A function is recognized as an example, if its declaration begins with `export function demo`.
+ * For example:
+ * ```
+ * export function demoFancyImageProcessing(img) {
+ *      // tag: demo-1
+ *      const metadata = auxiliaryFunction(img);
+ *      const fancyImage = doSomeFancyStuff(img, metadata);
+ *      // <div id="result">
+ *      document.getElementById("result").innerHTML = `<img src="${fancyImage}" alt="">`;
+ * }
+ * ```
+ * @param code example code
+ * @return Example[]
+ * */
+export function parseExampleFunction(code: string): Example[] {
+    const example:Example[] = [];
+    let functionLines = [];
+    const DEMO_INDICATOR = 'export function demo';
+    const state = {
+        inFunction: false,
+        openCurly: 0,
+        closeCurly: 0
+    };
+    for (const line of code.split('\n')) {
+        if(line.startsWith(DEMO_INDICATOR)) {
+            // recognize a new demo function
+            state.inFunction = true;
+        }
+        if(state.inFunction) {
+            functionLines.push(line);
+            const {openCurly, closeCurly} = countCurly(line);
+            state.openCurly += openCurly;
+            state.closeCurly += closeCurly;
+            if (state.openCurly === state.closeCurly) {
+                // reset state
+                console.log(state)
+                state.inFunction = false;
+                state.openCurly = 0;
+                state.closeCurly = 0;
+                example.push( parseCode(functionLines) );
+                functionLines = []
+            }
+        }
+    }
+    return example;
+}
+
+function countCurly(line) {
+    const length = line.length;
+    const openCurly = length - (line.replaceAll('{','').length);
+    const closeCurly = length - (line.replaceAll('}','').length);
+    return {openCurly, closeCurly};
+}
+
+/**
+ * show an Example in a DOM
+ * @param example the example, which is the result of {@see #parseCode} by parsing an example function.
+ * @param fmt a formatter. The default formatter just escapes HTML specific character.
+ *
+ * */
+export function showExampleCode(example:Example, fmt: Formatter = {js:htmlEscape, html:htmlEscape}) {
     const {js, html, elId} = {...example};
     const el = document.getElementById(elId);
     if(el) {
         try {
             const jsContainer = el.querySelector(JS_EXAMPLE_EL_QUERY);
-            jsContainer!.innerHTML = jsProcessor(js);
+            jsContainer!.innerHTML = fmt.js(js);
             const htmlContainer = el.querySelector(HTML_EXAMPLE_EL_QUERY);
-            htmlContainer!.innerHTML = htmlProcessor(html);
+            htmlContainer!.innerHTML = fmt.html(html);
         }catch (e) {
             throw new Error(`Container id ${elId} does not contain ${JS_EXAMPLE_EL_QUERY} or ${HTML_EXAMPLE_EL_QUERY}`);
         }

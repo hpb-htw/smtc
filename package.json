@@ -5,7 +5,7 @@
   "files": ["lib", "dist"],
   "scripts": {
     "build": "npx tsc -p tsconfig.json",
-    "test": "npx vitest --config vitest.config.ts",
+    "test": "npx vitest run --config vitest.config.ts",
     "doc": "npx typedoc --options typedoc.config.js",
     "clean": "rm -rfv dist www coverage smtc*.tgz",
     "pre-deploy": "",
