@@ -1,6 +1,6 @@
 {
-  "name": "smtc",
-  "version": "1.0.0-beta.1",
+  "name": "zmdc",
+  "version": "2.0.0",
   "type": "module",
   "files": ["lib", "dist"],
   "scripts": {
@@ -8,7 +8,8 @@
     "test": "npx vitest --config vitest.config.ts",
     "doc": "npx typedoc --options typedoc.config.js",
     "clean": "rm -rfv dist www coverage smtc*.tgz",
-    "deploy": "cat npmrc.template > .npmrc; sleep 0.5s; npm publish"
+    "pre-deploy": "",
+    "deploy": "cp npmrc.template .npmrc; npm publish"
   },
   "author": "Hong-Phuc Bui",
   "license": "MIT",

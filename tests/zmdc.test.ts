@@ -1,5 +1,5 @@
 import {expect, test} from "vitest";
-import {showExampleCode} from "../lib/smtc.ts";
+import {showExampleCode} from "../lib/zmdc.ts";
 
 
 test('say hello', () => {
