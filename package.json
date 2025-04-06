@@ -1,6 +1,6 @@
 {
   "name": "smtc",
-  "version": "1.0.0",
+  "version": "1.0.0-beta.1",
   "type": "module",
   "files": ["lib", "dist"],
   "scripts": {
@@ -8,7 +8,7 @@
     "test": "npx vitest --config vitest.config.ts",
     "doc": "npx typedoc --options typedoc.config.js",
     "clean": "rm -rfv dist www coverage smtc*.tgz",
-    "deploy": "cat npmrc.template > .npmrc; npm publish"
+    "deploy": "cat npmrc.template > .npmrc; sleep 0.5s; npm publish"
   },
   "author": "Hong-Phuc Bui",
   "license": "MIT",

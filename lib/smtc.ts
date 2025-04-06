@@ -17,9 +17,9 @@ export function showExampleCode(example:Example, jsProcessor=htmlEscape, htmlPro
     if(el) {
         try {
             const jsContainer = el.querySelector(JS_EXAMPLE_EL_QUERY);
+            jsContainer!.innerHTML = jsProcessor(js);
             const htmlContainer = el.querySelector(HTML_EXAMPLE_EL_QUERY);
-            jsContainer.innerHTML = jsProcessor(js);
-            htmlContainer.innerHTML = htmlProcessor(html);
+            htmlContainer!.innerHTML = htmlProcessor(html);
         }catch (e) {
             throw new Error(`Container id ${elId} does not contain ${JS_EXAMPLE_EL_QUERY} or ${HTML_EXAMPLE_EL_QUERY}`);
         }
@@ -28,7 +28,7 @@ export function showExampleCode(example:Example, jsProcessor=htmlEscape, htmlPro
     }
 }
 
-export function parseCode(functionLines:[string]):Example {
+export function parseCode(functionLines:string[]):Example {
     const HTML_INDICATOR = '// <';
     const FUNCTION_INDENT_SIZE = 4;
 
@@ -51,7 +51,7 @@ export function parseCode(functionLines:[string]):Example {
     return {js: js.join('\n'), html: html.join('\n'), elId};
 }
 
-function parseElId(line) {
+function parseElId(line:string) {
     line = line.trim();
     const EL_ID_INDICATOR = '// tag:';
     if(line.startsWith(EL_ID_INDICATOR)) {
