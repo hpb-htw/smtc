@@ -1,0 +1,3 @@
+[submodule "zmdc-doc"]
+	path = zmdc-doc
+	url = git@github.com:hpb-htw/zmdc-doc.git
