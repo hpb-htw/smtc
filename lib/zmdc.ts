@@ -3,6 +3,11 @@ import type {CurlyMatch, Example, Formatter} from "./types.js";
 export const JS_EXAMPLE_EL_QUERY = 'code[class*="example-javascript"]';
 export const HTML_EXAMPLE_EL_QUERY = 'code[class*="example-html"]';
 
+/**
+ * escape HTML specific character.
+ * @param text text to insert into HTML
+ * @return escaped text
+ * */
 export const htmlEscape = (text:string) : string => {
     return text.replaceAll("&", "&amp;")
         .replaceAll("<", "&lt;")
@@ -27,7 +32,7 @@ export const htmlEscape = (text:string) : string => {
  * @param code example code
  * @return Example[]
  * */
-export function parseExampleFunction(code: string): Example[] {
+export function parseExampleFunctions(code: string): Example[] {
     const example:Example[] = [];
     let functionLines = [];
     const DEMO_INDICATOR = 'export function demo';

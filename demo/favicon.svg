@@ -13,24 +13,31 @@
    xmlns:svg="http://www.w3.org/2000/svg">
   <sodipodi:namedview
      id="namedview1"
-     pagecolor="#b6b6b6"
+     pagecolor="#ffffff"
      bordercolor="#666666"
      borderopacity="1.0"
      inkscape:showpageshadow="2"
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="7.109375"
-     inkscape:cx="127.92967"
-     inkscape:cy="128"
-     inkscape:window-width="3840"
-     inkscape:window-height="2051"
-     inkscape:window-x="2560"
-     inkscape:window-y="36"
+     inkscape:zoom="1.7773438"
+     inkscape:cx="189.89011"
+     inkscape:cy="259.37582"
+     inkscape:window-width="2560"
+     inkscape:window-height="1403"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg1" />
   <defs
      id="defs1" />
+  <rect
+     style="fill:#cccccc;stroke:none;stroke-width:0.964999;stroke-linejoin:bevel;stroke-miterlimit:9.9;paint-order:stroke fill markers"
+     id="rect1"
+     width="67.73333"
+     height="67.73333"
+     x="1.8635254e-06"
+     y="1.8635254e-06" />
   <path
      style="font-weight:bold;font-size:41.6278px;line-height:1.25;font-family:'IBM Plex Mono';-inkscape-font-specification:'IBM Plex Mono Bold';fill:#aa0000;fill-opacity:1;stroke-width:0.264583"
      d="M 17.839948,67.733333 V 61.988697 L 5.4764911,55.453133 V 55.120111 L 17.839948,48.584547 V 42.83991 l -17.89995436,9.574394 v 5.744636 z m 32.053438,0 L 67.79334,58.15894 V 52.414304 L 49.893386,42.83991 v 5.744637 l 12.363456,6.535564 v 0.333022 l -12.363456,6.535564 z"

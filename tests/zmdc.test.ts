@@ -3,7 +3,7 @@ import {
     HTML_EXAMPLE_EL_QUERY,
     htmlEscape,
     JS_EXAMPLE_EL_QUERY,
-    parseExampleFunction,
+    parseExampleFunctions,
     showExampleCode
 } from "../lib/zmdc.ts";
 import {JSDOM} from "jsdom";
@@ -40,24 +40,24 @@ export function demoFancyImageProcessing(img) {
 `;
 
 test('parseExampleFunction should recognize demo functions', () => {
-    const examples = parseExampleFunction(code);
+    const examples = parseExampleFunctions(code);
     expect(examples).toHaveLength(1);
 });
 
 test('parseExampleFunction should recognize // tag: in function', () => {
-    const examples = parseExampleFunction(code);
+    const examples = parseExampleFunctions(code);
     const demo = examples[0];
     expect(demo.elId).toStrictEqual('demo-1');
 });
 
 test('parseExampleFunction should recgnize js example code in function', () => {
-    const example = parseExampleFunction(code);
+    const example = parseExampleFunctions(code);
     const demo = example[0];
     expect(demo.js).toStrictEqual(js.join('\n'));
 });
 
 test('parseExampleFunction should recognize html example code in function', () => {
-    const examples = parseExampleFunction(code);
+    const examples = parseExampleFunctions(code);
     const demo = examples[0];
     expect(demo.html).toStrictEqual(html.join('\n'));
 });
@@ -70,7 +70,7 @@ export function demoBadExample(data) {
 }    
     `;
     try {
-        parseExampleFunction(badCode);
+        parseExampleFunctions(badCode);
     }catch (e) {
         const message = e.message;
         expect(message).toContain('not started with // tag:');
@@ -79,7 +79,7 @@ export function demoBadExample(data) {
 
 test('parseExampleFunction should recognize more than one demoFunction', () =>{
     const doubleCode = `${code}\n /*some comments*/\n ${code}`;
-    const examples = parseExampleFunction(doubleCode);
+    const examples = parseExampleFunctions(doubleCode);
     expect(examples).toHaveLength(2);
 });
 
