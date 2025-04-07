@@ -10,11 +10,15 @@ install() {
     popd
 }
 
+aux_replace_path() {
+    sed -i "s|$(pwd)|/tmp|g" coverage/*
+}
 
 build() {
     npm run clean
     npm run build
     npm run test
+    aux_replace_path
     npm pack
 }
 
