@@ -35,7 +35,7 @@ export const htmlEscape = (text:string) : string => {
 export function parseExampleFunctions(code: string): Example[] {
     const example:Example[] = [];
     let functionLines = [];
-    const DEMO_INDICATOR = 'export function demo';
+    const DEMO_INDICATOR = /^(export(\s*))?function(\s+)demo(\w)+(\s)*\(/gm;
     const state = {
         inFunction: false,
         openCurly: 0,
@@ -43,23 +43,24 @@ export function parseExampleFunctions(code: string): Example[] {
     };
     for (const line of code.split('\n')) {
         if(!state.inFunction) {
-            if (line.startsWith(DEMO_INDICATOR)) {
+            const trimmedLine = line.trim();
+            if ( trimmedLine.search(DEMO_INDICATOR) === 0 ) {
                 // recognize a new demo function
                 state.inFunction = true;
             }
-            if (state.inFunction) {
-                functionLines.push(line);
-                const {openCurly, closeCurly} = countCurly(line);
-                state.openCurly += openCurly;
-                state.closeCurly += closeCurly;
-                if (state.openCurly === state.closeCurly) {
-                    // reset state
-                    state.inFunction = false;
-                    state.openCurly = 0;
-                    state.closeCurly = 0;
-                    example.push(parseCode(functionLines));
-                    functionLines = []
-                }
+        }
+        if (state.inFunction) {
+            functionLines.push(line);
+            const {openCurly, closeCurly} = countCurly(line);
+            state.openCurly += openCurly;
+            state.closeCurly += closeCurly;
+            if (state.openCurly === state.closeCurly) {
+                // reset state
+                state.inFunction = false;
+                state.openCurly = 0;
+                state.closeCurly = 0;
+                example.push(parseCode(functionLines));
+                functionLines = []
             }
         }
     }

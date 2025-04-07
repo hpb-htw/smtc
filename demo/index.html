@@ -18,50 +18,119 @@
         <ul></ul>
         <ul>
             <li><a href="#install">Install</a></li>
-            <li><a href="#usage">Usage</a></li>
+            <li>
+                <details class="dropdown">
+                    <summary><a href="#usage">Usage</a></summary>
+                    <ul>
+                        <li><a href="#what-to-show">What you want to show</a></li>
+                        <li><a href="#what-to-do">What you have to do</a></li>
+                        <li><a href="./syntax-highlight.html">Syntax highlight</a></li>
+                        <li><a href="./minify-code.html">Minify code</a></li>
+                    </ul>
+                </details>
+            </li>
             <li><a href="https://github.com/hpb-htw/zmdc" target="_blank">Source</a></li>
         </ul>
     </nav>
 </header>
 <main class="container">
     <section id="install">
-        <h3>Install</h3>
+        <h2>Install</h2>
         Install via NPM:
         <pre><code class="language-bash">npm install zmdc</code></pre>
         You can use this library as JavaScript (ESM) or Typescript.
         If you need UMD format, you can compile the TypeScript files by yourself, using your toolchain.
 
-        <h5>ESM</h5>
+        <h4>ESM</h4>
         <pre><code class="language-javascript">import {parseExampleFunction, showExampleCode} from 'node_module/zmdc/dist/zmdc.js'</code></pre>
 
-        <h5>TypeScript</h5>
+        <h4>TypeScript</h4>
         <pre><code class="language-javascript">import {parseExampleFunction, showExampleCode} from 'node_module/zmdc/lib/zmdc.(t|j)s'</code></pre>
         The extensions depends on your toolchain!
     </section>
 
     <section id="usage">
-        <h3>Usage</h3>
+        <h2>Usage</h2>
 
-        <h6>What you want to show</h6>
+        <h4 id="what-to-show">What you want to show</h4>
         You have a function <code>formatFancy()</code>.
-        You want to show a usage of this function in a context like this:
+        You want to show a usage of this function in a context (left side) and the result (right side):
 
         <div class="grid">
             <div id="fancy-demo" class="example-code">
-                <b>JavaScript</b>
+                <i>JavaScript</i>
                 <pre><code class="example-javascript"></code></pre>
-                <b>HTML</b>
+                <i>HTML</i>
                 <pre><code class="example-html"></code></pre>
             </div>
             <div>
-                <p><b>Result</b></p>
+                <p><i>Result:</i></p>
                 <span id="ff-result"></span>
             </div>
         </div>
 
-        <h6>What you have to do</h6>
-        In a file <code>demo.js</code> you can write a function to demonstrate usage of <code>formatFancy</code>
+        <h4 id="what-to-do">What you have to do</h4>
+        <h6>Step 1. Prepare your demonstration</h6>
+        <div id="howto-prepare-demo-function">
+            Encapsulate the demo code in a function, whose name starts with <code>demo</code>:
+            <pre><code class="example-javascript"></code></pre>
+            Update your HTML to let your demo function work properly.
+            <pre><code class="example-html"></code></pre>
+        </div>
+        <h6>Step 2. Run your demonstration</h6>
+        <div id="howto-run-demo-function">
+            <pre><code class="example-javascript"></code></pre>
+            <pre><code class="example-html" style="display:none"></code></pre>
+        </div>
+        <p>In this step you can check, if your demo function work like you want.</p>
 
+        <h6>Step 3. Mark necessary HTML tags in demonstration function</h6>
+        <p>Before you can let this library show you demo code on DOM, you have to mark these information in your function:</p>
+        <ol>
+            <li>In which DOM element should the demo code be shown</li>
+            <li>Which DOM elements needs the demo code to work properly</li>
+        </ol>
+        <div id="howto-mark-demo-info">
+            <p>
+                <i>For the 1. point:</i> the first line in demo function must be a comment <code>// tag: <i>id</i></code>
+                The <code><i>id</i></code> is the attribute id of the element tag, where JavaScript demo code is placed.
+                Here ist an element with <code>id="fancy-demo"</code>.
+                The element does not have to be a div, in most cases a div is fine.
+            </p>
+            <pre><code class="example-javascript"></code></pre>
+            <p>
+                The given element must contain at least two <code>code</code>-Tags with class list containing <code>example-javascript</code> and <code>example-html</code> respectively.
+            </p>
+            <pre><code class="example-html"></code></pre>
+            <p>
+                <i>For the 2. point:</i> One comment in form <code>// &lt;tag&gt;</code> for each necessary DOM-element.
+                The demo function here just needs only an element with <code>id="ff-result"</code>,
+                so there is only one comment.
+                By this way you can directly denote the demo code, which DOM element it needs to work.
+            </p>
+        </div>
+        <h6>Step 4. Show your demonstration</h6>
+        <p><i>Without minify</i>
+            In the case that you don't minify your code, you can easily get source code of a function.
+            In this case you can do following:
+        </p>
+        <div id="howto-show-demo-code">
+            <pre><code class="example-javascript"></code></pre>
+            <pre><code class="example-html" style="display:none"></code></pre>
+        </div>
+        <p>Now the div with <code>id="fancy-demo"</code> has the following content:</p>
+        <div id="duplicate-fancy-demo">
+            <pre><code class="example-javascript"></code></pre>
+            <pre><code class="example-html"></code></pre>
+        </div>
+        <p>As you wish to have!</p>
+        <p><i>With minify</i>
+            This case is more complicated, because you lose the source code of demo functions,
+            so you have to copy the dem functions to productive server,
+            then make a <code>fetch</code> to get content of the origin JavaScript file.
+            You can then call <code>parseExampleFunctions</code> to get an array of demo functions.
+            See <a href="minify-code.html">minify code</a> for more information.
+        </p>
     </section>
 </main>
 

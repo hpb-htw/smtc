@@ -10,6 +10,7 @@ export default defineConfig({
     mode: "production",
     build: {
         outDir: "www",
-        emptyOutDir: true
+        emptyOutDir: true,
+        minify: false
     },
 })
