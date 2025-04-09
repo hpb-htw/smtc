@@ -1,4 +1,4 @@
-import {htmlEscape, parseExampleFunctions, showExampleCode} from '../dist/zmdc.js';
+import {htmlEscape, parseExampleFunctions, showExampleCode} from './zmdc/zmdc.js';
 
 
 function formatFancy(text) {

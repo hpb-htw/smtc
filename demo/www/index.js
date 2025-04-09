@@ -1,9 +1,5 @@
-import {parseExampleFunctions, showExampleCode} from "../lib/zmdc.js";
+import {parseExampleFunctions, showExampleCode} from "./zmdc/zmdc.js";
 import {demoRunDemoFunction, demoShowDemoFunction, demoUsageTextFormatFunction} from "./demo.js";
-
-import Prism from 'prismjs';
-
-window.Prism = Prism;
 
 document.addEventListener("DOMContentLoaded", () => {
     // run the demo code
