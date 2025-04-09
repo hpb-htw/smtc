@@ -1,12 +1,35 @@
-import {parseCode, parseExampleFunctions, showExampleCode} from "../lib/zmdc.js";
+import {parseExampleFunctions, showExampleCode} from "../lib/zmdc.js";
+import {demoRunDemoFunction, demoShowDemoFunction, demoUsageTextFormatFunction} from "./demo.js";
 
-import {demoRunDemoFunction, demoShowDemoFunction, demoUsageFormatFancy} from "./demo.js";
+import Prism from 'prismjs';
+
+window.Prism = Prism;
+
+document.addEventListener("DOMContentLoaded", () => {
+    // run the demo code
+    demoUsageTextFormatFunction()
+    demoShowDemoFunction();
+
+    showHowtoPrepareCode();
+    showHowtoRunDemonstration();
+    showHowtoMarkNeededHTMLElement();
+    showDemoCodeInFunction();
+
+    showDemoFunctionAgain();
+
+    if(window.Prism) {
+        console.log(Prism)
+        Prism.highlightAll();
+    }else {
+        console.log("No Prismjs found")
+    }
+});
 
 function showHowtoPrepareCode() {
-    const parsedExample = parseExampleFunctions(demoUsageFormatFancy.toString())[0];
+    const parsedExample = parseExampleFunctions(demoUsageTextFormatFunction.toString())[0];
     const jsbody = parsedExample.js.split('\n').map(l => `    ${l}`).join('\n');
     const howtoPrepareExampleCode = {
-        js: `export function ${demoUsageFormatFancy.name}() {\n${jsbody}\n}` ,
+        js: `export function ${demoUsageTextFormatFunction.name}() {\n${jsbody}\n}` ,
         html: parsedExample.html,
         elId: "howto-prepare-demo-function"
     }
@@ -20,7 +43,7 @@ function showHowtoRunDemonstration() {
 }
 
 function showHowtoMarkNeededHTMLElement() {
-    const js = demoUsageFormatFancy.toString()
+    const js = demoUsageTextFormatFunction.toString()
     const howtoMarkElementExample = {
         js,
         html: `<div id="fancy-demo">
@@ -39,24 +62,12 @@ function showDemoCodeInFunction() {
 }
 
 function showDemoFunctionAgain() {
-    const demoFn = demoUsageFormatFancy.toString();
+    const demoFn = demoUsageTextFormatFunction.toString();
     const example = parseExampleFunctions(demoFn)[0];
     example.elId = "duplicate-fancy-demo";
     showExampleCode(example);
 }
 
 
-document.addEventListener("DOMContentLoaded", () => {
-    // run the demo code
-    demoUsageFormatFancy()
-    demoShowDemoFunction();
-
-    showHowtoPrepareCode();
-    showHowtoRunDemonstration();
-    showHowtoMarkNeededHTMLElement();
-    showDemoCodeInFunction();
-
-    showDemoFunctionAgain();
-})
 
 

@@ -2,12 +2,13 @@ import {parseCode, showExampleCode} from '../dist/zmdc.js';
 import {htmlEscape, parseExampleFunctions} from "../lib/zmdc.js";
 
 
+
 function formatFancy(text) {
     const escaped = htmlEscape(text);
     return `<span style="color:#fe2f33">${escaped}</span>`;
 }
 
-export function demoUsageFormatFancy() {
+export function demoUsageTextFormatFunction() {
     // tag: fancy-demo
     const text = "Funny texts don't need Comic Sans";
     const fancy = formatFancy(text);
@@ -17,14 +18,14 @@ export function demoUsageFormatFancy() {
 
 export function demoRunDemoFunction() {
     // tag: howto-run-demo-function
-    demoUsageFormatFancy();
+    demoUsageTextFormatFunction();
 }
 
 
 export function demoShowDemoFunction() {
     // tag: howto-show-demo-code
     // get the source code of the demo function
-    const demoFn = demoUsageFormatFancy.toString();
+    const demoFn = demoUsageTextFormatFunction.toString();
     // parse source code to example
     const example = parseExampleFunctions(demoFn)[0];
     // show example

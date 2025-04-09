@@ -1,4 +1,6 @@
 @import url('./node_modules/@picocss/pico/css/pico.grey.css');
+@import url('./node_modules/prismjs/themes/prism-solarizedlight.css');
+
 :root {
     --pico-font-size: 95%;
     --pico-spacing: 0.5rem;
@@ -22,6 +24,10 @@ body {
     overscroll-behavior-x:none;
 }
 
+a {
+    color: #0381fe
+}
+
 a[target="_blank"]:after {
     /*content: " ↗"*/ ;
     content: " ❐";
@@ -32,12 +38,16 @@ code {
     color: black;
 }
 
+.token.comment {
+    color: #de0f25
+}
+
 h1, h2, h3, h4, h5, h6 {
-    color: #080e7f
+    color: #0381FEFF;
 }
 
 h2 {
-    border-bottom: 2px solid rgba(3, 45, 254, 0.27);
+    border-bottom: 2px solid rgb(136, 173, 246);
     padding-bottom: 0.5ex;
 }
 
