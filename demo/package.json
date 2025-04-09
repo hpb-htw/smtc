@@ -4,7 +4,7 @@
   "description": "Demo Zeig mir den Code",
   "type": "module",
   "scripts": {
-
+    "build": "ls www"
   },
   "author": "Hong-Phuc Bui",
   "license": "MIT",

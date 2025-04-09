@@ -54,7 +54,7 @@ publish() {
 
 install
 build
-#build_demo
+build_demo
 commit_change
 deploy
 #publish
