@@ -1,4 +1,4 @@
-import type {CurlyMatch, Example, Formatter} from "./types.js";
+import type {CurlyMatch, Example, Formatter, HtmlCommentCandidate} from "./types.js";
 
 export const JS_EXAMPLE_EL_QUERY = 'code[class*="example-javascript"]';
 export const HTML_EXAMPLE_EL_QUERY = 'code[class*="example-html"]';
@@ -98,7 +98,7 @@ export function showExampleCode(example:Example, fmt: Formatter = {js:htmlEscape
 }
 
 export function parseCode(functionLines:string[]):Example {
-    const HTML_INDICATOR = '// <';
+
     const FUNCTION_INDENT_SIZE = 4;
 
     const js = [];
@@ -109,11 +109,12 @@ export function parseCode(functionLines:string[]):Example {
         html.push('<!-- function is minified -->')
     }
     for(const line of functionBodyLines ) {
-        const chars = line.trim();
-        if (chars.startsWith(HTML_INDICATOR) ) {
-            html.push(chars.slice(HTML_INDICATOR.length-1));
+        const chars = line.slice(FUNCTION_INDENT_SIZE).trimEnd();
+        const htmlComment = validHTML(chars);
+        if (  htmlComment.isComment ) {
+            html.push(  htmlComment.value );
         }else {
-            js.push(line.slice(FUNCTION_INDENT_SIZE).trimEnd());
+            js.push(chars);
         }
     }
     const elId = parseElId(functionLines[1]);
@@ -127,4 +128,18 @@ function parseElId(line:string) {
         return line.slice(EL_ID_INDICATOR.length).trim();
     }
     throw new Error(`'${line}' not started with ${EL_ID_INDICATOR}`);
+}
+
+function validHTML(chars:string):HtmlCommentCandidate {
+    const HTML_INDICATOR = /^(\/\/(\s+))</m;
+    const matches = HTML_INDICATOR.exec(chars);
+    if(matches) {
+        return {
+            isComment:true,
+            value: chars.slice(matches[1].length)
+        }
+    }
+    return  {
+        isComment: false
+    }
 }
