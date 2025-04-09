@@ -1,6 +1,5 @@
 node_modules
 dist
-www
 coverage
 .idea
 .npmrc

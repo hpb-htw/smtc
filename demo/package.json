@@ -4,15 +4,12 @@
   "description": "Demo Zeig mir den Code",
   "type": "module",
   "scripts": {
-    "clean": "rm -rf www",
-    "dev": "npx vite",
-    "build": "npx vite build; cp README.md *.js www"
+
   },
   "author": "Hong-Phuc Bui",
   "license": "MIT",
   "dependencies": {
     "@picocss/pico": "2.1.1",
-    "prismjs": "1.30.0",
-    "vite": "6.2.4"
+    "prismjs": "1.30.0"
   }
 }
