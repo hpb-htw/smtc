@@ -130,11 +130,12 @@ function parseElId(line:string) {
 
 function validHTML(chars:string):HtmlCommentCandidate {
     const HTML_INDICATOR = /^(\/\/(\s+))</m;
+    const CROPPED_PREFIX = '// '.length;
     const matches = HTML_INDICATOR.exec(chars);
     if(matches) {
         return {
             isComment:true,
-            value: chars.slice(matches[1].length)
+            value: chars.slice(CROPPED_PREFIX)
         }
     }
     return  {
