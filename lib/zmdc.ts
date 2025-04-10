@@ -98,9 +98,7 @@ export function showExampleCode(example:Example, fmt: Formatter = {js:htmlEscape
 }
 
 export function parseCode(functionLines:string[]):Example {
-
     const FUNCTION_INDENT_SIZE = 4;
-
     const js = [];
     const html = [];
     const functionBodyLines = functionLines.slice(2, -1);
