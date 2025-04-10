@@ -3,8 +3,6 @@ import {
     parseCode
 } from "../lib/zmdc.ts";
 
-import {Example} from "../lib/types";
-
 const insideFn = (`
     function demoInsiderFn() {
         // tag: this-is-taken-as-comment
