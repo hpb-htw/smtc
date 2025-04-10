@@ -10,6 +10,13 @@ export default defineConfig({
     mode: "production",
     build: {
         outDir: "www",
-        emptyOutDir: true
+        emptyOutDir: true,
+        rollupOptions: {
+            input: {
+                index: resolve(__dirname, 'index.html'),
+                syntaxHighlight: resolve(__dirname, 'syntax-highlight.html'),
+                minifyCode: resolve(__dirname, 'minify-code.html')
+            }
+        }
     },
 })
