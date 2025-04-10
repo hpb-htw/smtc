@@ -1,4 +1,5 @@
 import {htmlEscape, parseExampleFunctions, showExampleCode} from './zmdc/zmdc.js';
+import {JS_EXAMPLE_EL_QUERY, HTML_EXAMPLE_EL_QUERY} from "./zmdc/zmdc.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
     // run demo code of formatFancy
@@ -6,7 +7,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // parse myself to place demo code into DOM
     const MYSELF = "index.js";
     await showDemoCode(MYSELF);
-    showDemoUsageOfFunctionFancyFormatAgain();
+    demoUsageOfFunctionFancyFormatAgain();
     if(window.Prism) {
         console.log(Prism)
         Prism.highlightAll();
@@ -68,13 +69,6 @@ function demoHowtoShowDemoCodeInFunction() {
     showExampleCode(example);
 }
 
-function showDemoUsageOfFunctionFancyFormatAgain() {
-    const demoFn = demoUsageTextFormatFunction.toString();
-    const example = parseExampleFunctions(demoFn)[0];
-    example.elId = "duplicate-fancy-demo";
-    showExampleCode(example);
-}
-
 async function showDemoCode(demoScript) {
     const response = await fetch(demoScript, {method: 'GET'});
     const text = await response.text();
@@ -82,4 +76,19 @@ async function showDemoCode(demoScript) {
     for(const example of demoExamples) {
         showExampleCode(example);
     }
+}
+
+function demoUsageOfFunctionFancyFormatAgain() {
+    // tag: verify-contents-of-fancy-demo
+    const fancyDemo = document.getElementById("fancy-demo");
+    const jsCode = fancyDemo.querySelector(JS_EXAMPLE_EL_QUERY).innerHTML;
+    const htmlCode = fancyDemo.querySelector(HTML_EXAMPLE_EL_QUERY).innerHTML;
+    // <div id="duplicate-fancy-demo">
+    const elId = 'duplicate-fancy-demo';
+    const example = {
+        js: jsCode,
+        html: htmlCode,
+        elId
+    }
+    showExampleCode(example);
 }
