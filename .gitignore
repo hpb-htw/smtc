@@ -4,3 +4,4 @@ coverage
 .idea
 .npmrc
 zmdc-*.tgz
+demo/www/

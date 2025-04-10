@@ -1,4 +1,4 @@
-@import url('./3rd/picocss/pico.grey.min.css');
+@import url('./node_modules/@picocss/pico/css/pico.grey.css');
 
 
 :root {
