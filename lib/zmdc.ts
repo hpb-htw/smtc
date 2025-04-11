@@ -1,8 +1,8 @@
-import type {CurlyMatch, Example, Formatter, HtmlCommentCandidate} from "./types.js";
+import type {CurlyMatch, Example, Formatter, HtmlCommentCandidate, ParsingFunctionState} from "./types.js";
 
 export const JS_EXAMPLE_EL_QUERY = 'code[class*="example-javascript"]';
 export const HTML_EXAMPLE_EL_QUERY = 'code[class*="example-html"]';
-export const DEMO_INDICATOR = /^(export(\s+))?(async(\s+))?function(\s+)demo(\w+)(\s)*\(/m;
+export const DEMO_INDICATOR = /^((?<level>(export|return))\s+)?(async(\s+))?function(\*?)(\s+)demo(?<fnName>\w+)(\s)*\(/m;
 
 /**
  * escape HTML specific character.
@@ -40,7 +40,8 @@ export function parseExampleFunctions(code: string): Example[] {
         inFunction: false,
         openCurly: 0,
         closeCurly: 0,
-        fnName: ""
+        fnName: "",
+        fnModify: ""
     };
     for (const line of code.split('\n')) {
         if(!state.inFunction) {
@@ -49,7 +50,8 @@ export function parseExampleFunctions(code: string): Example[] {
             if ( matched ) {
                 // recognize a new demo function
                 state.inFunction = true;
-                state.fnName = matched[6];
+                state.fnName = matched.groups!["fnName"];
+                state.fnModify = matched.groups!["level"];
             }
         }
         if (state.inFunction) {
@@ -59,12 +61,13 @@ export function parseExampleFunctions(code: string): Example[] {
             state.closeCurly += closeCurly;
             if (state.openCurly === state.closeCurly) {
                 // reset state
-                example.push(parseCode(functionLines, state.fnName));
+                example.push(parseCode( functionLines, state.fnName) );
                 state.inFunction = false;
                 state.openCurly = 0;
                 state.closeCurly = 0;
                 state.fnName = "";
-                functionLines = []
+                state.fnModify = "";
+                functionLines = [];
             }
         }
     }

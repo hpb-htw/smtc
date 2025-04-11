@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="./node_modules/prismjs/themes/prism-solarizedlight.css" />
     <link rel="stylesheet" href="index.css" />
     <link rel="icon" href="favicon.svg" sizes="48x48" />
     <title>Zeig mir den Code</title>
@@ -13,23 +12,18 @@
         <h1><img src="favicon.svg" width="48px">
             Zeig mir den Code!
         </h1>
-        <p>A library to let library-author show demo code directly on browser without copy and paste</p>
+        <p>Don't repeat yourself, even by documentation</p>
     </hgroup>
     <nav>
-        <ul></ul>
+        <ul>
+            <li>Index</li>
+        </ul>
         <ul>
             <li><a href="#install">Install</a></li>
-            <li>
-                <details class="dropdown">
-                    <summary><a id="menu">Basic Usage</a></summary>
-                    <ul>
-                        <li><a href="#what-to-show">What you want to show</a></li>
-                        <li><a href="#what-to-do">What you have to do</a></li>
-                    </ul>
-                </details>
-            </li>
+            <li><a href="#usage">Basic Usage</a></li>
+            <li><a href="#minify-code">Minify code</a></li>
             <li><a href="./syntax-highlight.html">Syntax highlight</a></li>
-            <li><a href="./minify-code.html">Minify code</a></li>
+
             <li><a href="https://github.com/hpb-htw/zmdc" target="_blank">Source</a></li>
         </ul>
     </nav>
@@ -160,7 +154,7 @@
         </section>
     </section>
 
-    <section>
+    <section id="minify-code">
         <h2>Minified code</h2>
         <p>If your code is minified,
             you cannot get source code of a function in runtime by calling <code>.toString()</code> of the function.

@@ -1,5 +1,5 @@
+@import url(./node_modules/prismjs/themes/prism-solarizedlight.css);
 @import url('./node_modules/@picocss/pico/css/pico.grey.css');
-
 
 :root {
     --pico-font-size: 95%;
@@ -38,6 +38,7 @@ code {
 }
 
 details.optional {
+    border: solid 2px rgba(0,0,0,0.09);
     background-color: rgba(0,0,0,0.09);
     margin: 1em;
 }
@@ -46,6 +47,9 @@ details > summary {
     padding: 1ex;
 }
 
+pre[class*=language] {
+    border-radius: 0;
+}
 
 .token.comment {
     color: #de0f25

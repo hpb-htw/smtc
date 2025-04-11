@@ -14,7 +14,6 @@ export async function demoFetchOrigin() {
      * this function can also load any other demo script.
      * */
     async function showDemoCode(demoScript) {
-        console.log("Grrrrrrr");
         const response = await fetch(demoScript, {method: 'GET'});
         const text = await response.text();
         const demoExamples = parseExampleFunctions(text);

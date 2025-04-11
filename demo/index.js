@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     await demoFetchOrigin();
     demoUsageOfFunctionFancyFormatAgain();
     if(window.Prism) {
-        console.log(Prism)
         Prism.highlightAll();
     }else {
         console.log("No Prismjs found")

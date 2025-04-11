@@ -47,11 +47,13 @@ test("recognize demo functions", () => {
         ["function demoSimple()", "Simple"],
         ["async function demoAsyncFn(url)", "AsyncFn"],
         ["export function demoExport()", "Export"],
-        ["export async function demoBothModify()", "BothModify"]
+        ["export async function demoBothModify()", "BothModify"],
+        ["export async function* demoAsyncGenerator()", "AsyncGenerator"],
+        ["return async function* demoAsyncGenerator()", "AsyncGenerator"],
     ];
     for(const [sign, name] of fnSign ) {
         console.log(sign)
         const parseResult = DEMO_INDICATOR.exec(sign);
-        expect(parseResult[6]).toStrictEqual(name);
+        expect(parseResult.groups["fnName"]).toStrictEqual(name);
     }
 });

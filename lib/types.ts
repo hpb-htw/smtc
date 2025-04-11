@@ -41,6 +41,13 @@ export interface CurlyMatch {
     closeCurly:number
 }
 
+export interface ParsingFunctionState extends CurlyMatch {
+    inFunction: boolean,
+    fnName: string,
+    fnModify: ("return" | "export" | ""),
+    fnLines: string[]
+}
+
 export interface HtmlCommentCandidate {
     isComment:boolean,
     value?:string
