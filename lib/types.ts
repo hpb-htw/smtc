@@ -11,7 +11,12 @@ export interface Example {
     /**
      * the id-attribute of a container element, in which the js-code and html-code are shown.
      * */
-    elId:string
+    elId:string,
+
+    /**
+     * name of the demo function, without prefix `demo'
+     * */
+    name: string
 }
 
 /**

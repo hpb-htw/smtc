@@ -38,4 +38,5 @@ test("parseCode should take inside function as JavaScript code", () => {
     expect(example.js).toStrictEqual(expected);
     expect(example.html).toStrictEqual(outsideHTML);
     expect(example.elId).toStrictEqual('demo-function-inside');
+    expect(example.name).toStrictEqual('FunctionInside');
 });

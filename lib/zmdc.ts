@@ -2,7 +2,7 @@ import type {CurlyMatch, Example, Formatter, HtmlCommentCandidate} from "./types
 
 export const JS_EXAMPLE_EL_QUERY = 'code[class*="example-javascript"]';
 export const HTML_EXAMPLE_EL_QUERY = 'code[class*="example-html"]';
-export const DEMO_INDICATOR = /^(export(\s*))?function(\s+)demo(\w+)(\s)*\(/gm;
+export const DEMO_INDICATOR = /^(export(\s*))?function(\s+)demo(\w+)(\s)*\(/m;
 
 /**
  * escape HTML specific character.
@@ -116,7 +116,9 @@ export function parseCode(functionLines:string[]):Example {
         }
     }
     const elId = parseElId(functionLines[1]);
-    return {js: js.join('\n'), html: html.join('\n'), elId};
+    // ts: no-check
+    const name = DEMO_INDICATOR.exec(functionLines[0])[4];
+    return {js: js.join('\n'), html: html.join('\n'), elId, name};
 }
 
 function parseElId(line:string) {
