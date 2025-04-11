@@ -147,3 +147,23 @@ test('showExampleCode should throw error if no js container found', () => {
         expect(e.message).toContain(`does not contain ${JS_EXAMPLE_EL_QUERY}`);
     }
 });
+
+test('showExampleCode should throw error if no html container found', () => {
+    const container = `
+<div id="demo-1">
+    <pre><code class="example-javascript"></code></pre>    
+</div>    
+    `;
+    const example:Example = {
+        js: (js.join('\n')),
+        html: (html.join('\n')),
+        elId: 'demo-1',
+        name: 'dummy'
+    }
+    globalThis.document = new JSDOM(container).window.document;
+    try {
+        showExampleCode(example);
+    } catch (e) {
+        expect(e.message).toContain(`does not contain ${HTML_EXAMPLE_EL_QUERY}`);
+    }
+});

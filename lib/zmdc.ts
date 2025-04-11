@@ -50,7 +50,6 @@ export function parseExampleFunctions(code: string): Example[] {
                 // recognize a new demo function
                 state.inFunction = true;
                 state.fnName = matched[4];
-                console.log(state);
             }
         }
         if (state.inFunction) {
@@ -89,13 +88,21 @@ export function showExampleCode(example:Example, fmt: Formatter = {js:htmlEscape
     const {js, html, elId} = {...example};
     const el = document.getElementById(elId);
     if(el) {
-        try {
+        if(js.length > 0) {
             const jsContainer = el.querySelector(JS_EXAMPLE_EL_QUERY);
-            jsContainer!.innerHTML = fmt.js(js);
+            if(jsContainer) {
+                jsContainer.innerHTML = fmt.js(js);
+            } else {
+                throw new Error(`Container id ${elId} does not contain ${JS_EXAMPLE_EL_QUERY} but javascript example is not empty`);
+            }
+        }
+        if(html.length > 0) {
             const htmlContainer = el.querySelector(HTML_EXAMPLE_EL_QUERY);
-            htmlContainer!.innerHTML = fmt.html(html);
-        }catch (e) {
-            throw new Error(`Container id ${elId} does not contain ${JS_EXAMPLE_EL_QUERY} or ${HTML_EXAMPLE_EL_QUERY}`);
+            if(htmlContainer) {
+                htmlContainer.innerHTML = fmt.html(html);
+            } else {
+                throw new Error(`Container id ${elId} does not contain ${HTML_EXAMPLE_EL_QUERY} but HTML example is not empty`);
+            }
         }
     }else {
         throw new Error(`Container element with id="${elId}" not found`);
@@ -108,8 +115,8 @@ export function parseCode(functionLines:string[], name:string):Example {
     const html = [];
     const functionBodyLines = functionLines.slice(2, -1);
     if(functionBodyLines.length === 0) {
-        js.push('/* function is minified */');
-        html.push('<!-- function is minified -->')
+        js.push('');
+        html.push('')
     }
     for(const line of functionBodyLines ) {
         const chars = line.slice(FUNCTION_INDENT_SIZE).trimEnd();

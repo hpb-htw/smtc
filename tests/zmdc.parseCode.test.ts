@@ -34,7 +34,6 @@ test("parseCode should take inside function as JavaScript code", () => {
     const expected = (' '.repeat(4) + insideFn).split('\n')
         .map(l => l.slice(4))
         .join('\n');
-    console.log(expected)
     expect(example.js).toStrictEqual(expected);
     expect(example.html).toStrictEqual(outsideHTML);
     expect(example.elId).toStrictEqual('demo-function-inside');
