@@ -35,13 +35,14 @@ export const htmlEscape = (text:string) : string => {
  * */
 export function parseExampleFunctions(code: string): Example[] {
     const example:Example[] = [];
-    let functionLines = [];
-    const state = {
+    //let functionLines = [];
+    const state:ParsingFunctionState = {
         inFunction: false,
         openCurly: 0,
         closeCurly: 0,
         fnName: "",
-        fnModify: ""
+        fnModify: "",
+        fnLines: []
     };
     for (const line of code.split('\n')) {
         if(!state.inFunction) {
@@ -51,7 +52,8 @@ export function parseExampleFunctions(code: string): Example[] {
                 // recognize a new demo function
                 state.inFunction = true;
                 state.fnName = matched.groups!["fnName"];
-                state.fnModify = matched.groups!["level"];
+                // @ts-ignore
+                state.fnModify = matched.groups!["level"] || "";
             }
         }
         if (state.inFunction) {
