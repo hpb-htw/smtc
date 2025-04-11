@@ -2,7 +2,9 @@ import type {CurlyMatch, Example, Formatter, HtmlCommentCandidate, ParsingFuncti
 
 export const JS_EXAMPLE_EL_QUERY = 'code[class*="example-javascript"]';
 export const HTML_EXAMPLE_EL_QUERY = 'code[class*="example-html"]';
-export const DEMO_INDICATOR = /^((?<level>(export|return))\s+)?(async(\s+))?function(\*?)(\s+)demo(?<fnName>\w+)(\s)*\(/m;
+//export const DEMO_INDICATOR = /^((?<level>(export|return))\s+)?(async(\s+))?function(\*?)(\s+)demo(?<fnName>\w+)(\s)*\(/m;
+export const DEMO_BLOCK_INDICATOR = /^\/\/(\s*)tag:(\s*)(?<name>(\w+[\w\-_]*))/m;
+
 
 /**
  * escape HTML specific character.
@@ -37,26 +39,24 @@ export function parseExampleFunctions(code: string): Example[] {
     const example:Example[] = [];
     //let functionLines = [];
     const state:ParsingFunctionState = {
-        inFunction: false,
+        inBlock: false,
         openCurly: 0,
         closeCurly: 0,
         fnName: "",
-        fnModify: "",
         fnLines: []
     };
     for (const line of code.split('\n')) {
-        if(!state.inFunction) {
-            const trimmedLine = line.trim();
-            const matched = DEMO_INDICATOR.exec(trimmedLine);
+        if(!state.inBlock) {
+            const trimmedLine = line.trimEnd();
+            const matched = DEMO_BLOCK_INDICATOR.exec(trimmedLine);
             if ( matched ) {
                 // recognize a new demo function
-                state.inFunction = true;
-                state.fnName = matched.groups!["fnName"];
-                // @ts-ignore
-                state.fnModify = matched.groups!["level"];
+                state.inBlock = true;
+                state.fnName = matched.groups!["name"];
+                continue;
             }
         }
-        if (state.inFunction) {
+        if (state.inBlock) {
             state.fnLines.push(line);
             const {openCurly, closeCurly} = countCurly(line);
             state.openCurly += openCurly;
@@ -64,11 +64,10 @@ export function parseExampleFunctions(code: string): Example[] {
             if (state.openCurly === state.closeCurly) {
                 example.push(parseCode( state) );
                 // reset state
-                state.inFunction = false;
+                state.inBlock = false;
                 state.openCurly = 0;
                 state.closeCurly = 0;
                 state.fnName = "";
-                state.fnModify = "";
                 state.fnLines = [];
             }
         }
@@ -119,7 +118,7 @@ export function parseCode( state:ParsingFunctionState ):Example {
     const FUNCTION_INDENT_SIZE = 4;
     const js = [];
     const html = [];
-    const functionBodyLines = functionLines.slice(2, -1);
+    const functionBodyLines = functionLines.slice(1, -1);
     if(functionBodyLines.length === 0) {
         js.push('');
         html.push('')
@@ -133,18 +132,11 @@ export function parseCode( state:ParsingFunctionState ):Example {
             js.push(chars);
         }
     }
-    const elId = parseElId(functionLines[1]);
-    return {js: js.join('\n'), html: html.join('\n'), elId, name:state.fnName};
+    const elId = state.fnName; //parseElId(functionLines[1]);
+    return {js: js.join('\n'), html: html.join('\n'), elId};
 }
 
-function parseElId(line:string) {
-    line = line.trim();
-    const EL_ID_INDICATOR = '// tag:';
-    if(line.startsWith(EL_ID_INDICATOR)) {
-        return line.slice(EL_ID_INDICATOR.length).trim();
-    }
-    throw new Error(`'${line}' not started with ${EL_ID_INDICATOR}`);
-}
+
 
 function validHTML(chars:string):HtmlCommentCandidate {
     const HTML_INDICATOR = /^(\/\/(\s+))</m;

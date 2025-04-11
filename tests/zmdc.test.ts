@@ -1,7 +1,6 @@
 import {expect, test} from "vitest";
 import {
     HTML_EXAMPLE_EL_QUERY,
-    htmlEscape,
     JS_EXAMPLE_EL_QUERY,
     parseExampleFunctions,
     showExampleCode
@@ -22,22 +21,23 @@ const html = [
     '<span id="length"></span>'
 ]
 
+
 const code = `
 function auxiliaryFunction(img) {
     console.log('Here is an auxiliary function');
     return img.toString();
 }
 
-export function demoFancyImageProcessing(img) {
-    // tag: demo-1
-    ${js[0]}
-    ${js[1]}
-    // ${html[0]}
-    ${js[2]}
-    // ${html[1]}
-    ${js[3]}
-} 
-`;
+// tag: demo-1
+{
+    const metadata = auxiliaryFunction(img);
+    const fancyImage = doSomeFancyStuff(img, metadata);
+    // <div id="result"></div>
+    document.getElementById("result").innerHTML = "TODO: append fancyImage hier";
+    // <span id="length"></span>
+    document.getElementById("length").innerText = "length: " + (fancyImage.length);
+}`
+
 
 test('parseExampleFunction should recognize demo functions', () => {
     const examples = parseExampleFunctions(code);
@@ -60,12 +60,6 @@ test('parseExampleFunction should recognize html example code in function', () =
     const examples = parseExampleFunctions(code);
     const demo = examples[0];
     expect(demo.html).toStrictEqual(html.join('\n'));
-});
-
-test('parseExampleFunction should recognize function name', () => {
-    const examples = parseExampleFunctions(code);
-    const demo = examples[0];
-    expect(demo.name).toStrictEqual('FancyImageProcessing');
 });
 
 test('parseExampleFunction should recognize absence of tag:', () => {
@@ -99,8 +93,7 @@ test('showExampleCode should insert example code as HTML into container', () => 
     const example:Example = {
         js: (js.join('\n')),
         html: (html.join('\n')),
-        elId: 'demo-1',
-        name: 'dummy'
+        elId: 'demo-1'
     }
     globalThis.document = new JSDOM(container).window.document;
     showExampleCode(example);
@@ -121,8 +114,7 @@ test('showExampleCode should throw error when no container is found', ({ expect 
     const example:Example = {
         js: (js.join('\n')),
         html: (html.join('\n')),
-        elId: 'demo-not-existing',
-        name: 'dummy'
+        elId: 'demo-not-existing'
     }
     globalThis.document = new JSDOM(container).window.document;
     try {
@@ -142,8 +134,7 @@ test('showExampleCode should throw error if no js container found', () => {
     const example:Example = {
         js: (js.join('\n')),
         html: (html.join('\n')),
-        elId: 'demo-1',
-        name: 'dummy'
+        elId: 'demo-1'
     }
     globalThis.document = new JSDOM(container).window.document;
     try {
@@ -162,8 +153,7 @@ test('showExampleCode should throw error if no html container found', () => {
     const example:Example = {
         js: (js.join('\n')),
         html: (html.join('\n')),
-        elId: 'demo-1',
-        name: 'dummy'
+        elId: 'demo-1'
     }
     globalThis.document = new JSDOM(container).window.document;
     try {

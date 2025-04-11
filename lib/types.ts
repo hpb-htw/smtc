@@ -11,12 +11,7 @@ export interface Example {
     /**
      * the id-attribute of a container element, in which the js-code and html-code are shown.
      * */
-    elId:string,
-
-    /**
-     * name of the demo function, without prefix `demo'
-     * */
-    name: string
+    elId:string
 }
 
 /**
@@ -42,9 +37,8 @@ export interface CurlyMatch {
 }
 
 export interface ParsingFunctionState extends CurlyMatch {
-    inFunction: boolean,
+    inBlock: boolean,
     fnName: string,
-    fnModify: ("return" | "export" | ""),
     fnLines: string[]
 }
 
