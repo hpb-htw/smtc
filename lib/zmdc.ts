@@ -102,7 +102,7 @@ export function showExampleCode(example:Example, fmt: Formatter = {js:htmlEscape
     }
 }
 
-export function parseCode(functionLines:string[], name):Example {
+export function parseCode(functionLines:string[], name:string):Example {
     const FUNCTION_INDENT_SIZE = 4;
     const js = [];
     const html = [];
