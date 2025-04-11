@@ -38,6 +38,16 @@ code {
     color: black;
 }
 
+details.optional {
+    background-color: rgba(0,0,0,0.09);
+    margin: 1em;
+}
+
+details > summary {
+    padding: 1ex;
+}
+
+
 .token.comment {
     color: #de0f25
 }
