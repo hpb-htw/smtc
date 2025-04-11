@@ -2,6 +2,7 @@ import type {CurlyMatch, Example, Formatter, HtmlCommentCandidate} from "./types
 
 export const JS_EXAMPLE_EL_QUERY = 'code[class*="example-javascript"]';
 export const HTML_EXAMPLE_EL_QUERY = 'code[class*="example-html"]';
+export const DEMO_INDICATOR = /^(export(\s*))?function(\s+)demo(\w+)(\s)*\(/gm;
 
 /**
  * escape HTML specific character.
@@ -35,7 +36,6 @@ export const htmlEscape = (text:string) : string => {
 export function parseExampleFunctions(code: string): Example[] {
     const example:Example[] = [];
     let functionLines = [];
-    const DEMO_INDICATOR = /^(export(\s*))?function(\s+)demo(\w)+(\s)*\(/gm;
     const state = {
         inFunction: false,
         openCurly: 0,
