@@ -39,14 +39,17 @@ export function parseExampleFunctions(code: string): Example[] {
     const state = {
         inFunction: false,
         openCurly: 0,
-        closeCurly: 0
+        closeCurly: 0,
+        fnName: ""
     };
     for (const line of code.split('\n')) {
         if(!state.inFunction) {
             const trimmedLine = line.trim();
-            if ( trimmedLine.search(DEMO_INDICATOR) === 0 ) {
+            const matched = DEMO_INDICATOR.exec(trimmedLine);
+            if ( matched ) {
                 // recognize a new demo function
                 state.inFunction = true;
+                state.fnName = matched[4];
             }
         }
         if (state.inFunction) {
@@ -56,10 +59,11 @@ export function parseExampleFunctions(code: string): Example[] {
             state.closeCurly += closeCurly;
             if (state.openCurly === state.closeCurly) {
                 // reset state
+                example.push(parseCode(functionLines, state.fnName));
                 state.inFunction = false;
                 state.openCurly = 0;
                 state.closeCurly = 0;
-                example.push(parseCode(functionLines));
+                state.fnName = "";
                 functionLines = []
             }
         }
@@ -97,7 +101,7 @@ export function showExampleCode(example:Example, fmt: Formatter = {js:htmlEscape
     }
 }
 
-export function parseCode(functionLines:string[]):Example {
+export function parseCode(functionLines:string[], name:string):Example {
     const FUNCTION_INDENT_SIZE = 4;
     const js = [];
     const html = [];
@@ -116,8 +120,6 @@ export function parseCode(functionLines:string[]):Example {
         }
     }
     const elId = parseElId(functionLines[1]);
-    // ts: no-check
-    const name = DEMO_INDICATOR.exec(functionLines[0])[4];
     return {js: js.join('\n'), html: html.join('\n'), elId, name};
 }
 
