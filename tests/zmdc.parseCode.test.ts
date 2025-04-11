@@ -29,7 +29,7 @@ ${outsideHTML.split('\n').map(l => '    // ' + l).join('\n')}
 }`).trim()
 
 test("parseCode should take inside function as JavaScript code", () => {
-    const example = parseCode(outsideFn.split('\n'));
+    const example = parseCode(outsideFn.split('\n'), 'FunctionInside');
     //console.log(outsideFn)
     const expected = (' '.repeat(4) + insideFn).split('\n')
         .map(l => l.slice(4))

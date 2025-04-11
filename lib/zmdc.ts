@@ -50,6 +50,7 @@ export function parseExampleFunctions(code: string): Example[] {
                 // recognize a new demo function
                 state.inFunction = true;
                 state.fnName = matched[4];
+                console.log(state);
             }
         }
         if (state.inFunction) {
@@ -101,7 +102,7 @@ export function showExampleCode(example:Example, fmt: Formatter = {js:htmlEscape
     }
 }
 
-export function parseCode(functionLines:string[], name:string):Example {
+export function parseCode(functionLines:string[], name):Example {
     const FUNCTION_INDENT_SIZE = 4;
     const js = [];
     const html = [];

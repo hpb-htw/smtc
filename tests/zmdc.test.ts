@@ -94,7 +94,8 @@ test('showExampleCode should insert example code as HTML into container', () => 
     const example:Example = {
         js: (js.join('\n')),
         html: (html.join('\n')),
-        elId: 'demo-1'
+        elId: 'demo-1',
+        name: 'dummy'
     }
     globalThis.document = new JSDOM(container).window.document;
     showExampleCode(example);
@@ -105,7 +106,7 @@ test('showExampleCode should insert example code as HTML into container', () => 
     expect(htmlContainer.textContent).toStrictEqual(html.join('\n'));
 });
 
-test('showExampleCode should throw error when no container is found', () => {
+test('showExampleCode should throw error when no container is found', ({ expect }) => {
     const container = `
 <div id="demo-1">
     <pre><code class="example-javascript lang-js"></code></pre>
@@ -115,7 +116,8 @@ test('showExampleCode should throw error when no container is found', () => {
     const example:Example = {
         js: (js.join('\n')),
         html: (html.join('\n')),
-        elId: 'demo-not-existing'
+        elId: 'demo-not-existing',
+        name: 'dummy'
     }
     globalThis.document = new JSDOM(container).window.document;
     try {
@@ -135,7 +137,8 @@ test('showExampleCode should throw error if no js container found', () => {
     const example:Example = {
         js: (js.join('\n')),
         html: (html.join('\n')),
-        elId: 'demo-1'
+        elId: 'demo-1',
+        name: 'dummy'
     }
     globalThis.document = new JSDOM(container).window.document;
     try {
