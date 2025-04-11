@@ -62,6 +62,11 @@ test('parseExampleFunction should recognize html example code in function', () =
     expect(demo.html).toStrictEqual(html.join('\n'));
 });
 
+test('parseExampleFunction should recognize function name', () => {
+    const examples = parseExampleFunctions(code);
+    const demo = examples[0];
+    expect(demo.name).toStrictEqual('FancyImageProcessing');
+});
 
 test('parseExampleFunction should recognize absence of tag:', () => {
     const badCode = `

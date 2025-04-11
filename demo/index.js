@@ -1,6 +1,8 @@
 import {JS_EXAMPLE_EL_QUERY, HTML_EXAMPLE_EL_QUERY,
     htmlEscape, parseExampleFunctions, showExampleCode} from '../dist/zmdc.js';
 
+import {demoFetchOrigin} from "./minify-code.js";
+
 import Prism from 'prismjs';
 
 window.Prism = Prism;
@@ -11,6 +13,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // parse myself to place demo code into DOM
     const MYSELF = "index.js";
     await showDemoCode(MYSELF);
+    await demoFetchOrigin();
     demoUsageOfFunctionFancyFormatAgain();
     if(window.Prism) {
         console.log(Prism)
@@ -19,6 +22,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         console.log("No Prismjs found")
     }
 });
+
 
 function formatFancy(text) {
     const escaped = htmlEscape(text);

@@ -2,7 +2,7 @@ import type {CurlyMatch, Example, Formatter, HtmlCommentCandidate} from "./types
 
 export const JS_EXAMPLE_EL_QUERY = 'code[class*="example-javascript"]';
 export const HTML_EXAMPLE_EL_QUERY = 'code[class*="example-html"]';
-export const DEMO_INDICATOR = /^(export(\s*))?function(\s+)demo(\w+)(\s)*\(/m;
+export const DEMO_INDICATOR = /^(export(\s+))?(async(\s+))?function(\s+)demo(\w+)(\s)*\(/m;
 
 /**
  * escape HTML specific character.
@@ -49,7 +49,7 @@ export function parseExampleFunctions(code: string): Example[] {
             if ( matched ) {
                 // recognize a new demo function
                 state.inFunction = true;
-                state.fnName = matched[4];
+                state.fnName = matched[6];
             }
         }
         if (state.inFunction) {

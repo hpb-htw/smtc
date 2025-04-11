@@ -1,5 +1,6 @@
 import {expect, test} from "vitest";
 import {
+    DEMO_INDICATOR,
     parseCode
 } from "../lib/zmdc.ts";
 
@@ -38,4 +39,19 @@ test("parseCode should take inside function as JavaScript code", () => {
     expect(example.html).toStrictEqual(outsideHTML);
     expect(example.elId).toStrictEqual('demo-function-inside');
     expect(example.name).toStrictEqual('FunctionInside');
+});
+
+
+test("recognize demo functions", () => {
+    const fnSign = [
+        ["function demoSimple()", "Simple"],
+        ["async function demoAsyncFn(url)", "AsyncFn"],
+        ["export function demoExport()", "Export"],
+        ["export async function demoBothModify()", "BothModify"]
+    ];
+    for(const [sign, name] of fnSign ) {
+        console.log(sign)
+        const parseResult = DEMO_INDICATOR.exec(sign);
+        expect(parseResult[6]).toStrictEqual(name);
+    }
 });

@@ -29,7 +29,6 @@ a {
 }
 
 a[target="_blank"]:after {
-    /*content: " ↗"*/ ;
     content: " ❐";
     font-family: system-ui, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, Helvetica, Arial, "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }

@@ -160,21 +160,35 @@
         </section>
     </section>
 
+    <section>
+        <h2>Minified code</h2>
+        <p>If your code is minified,
+            you cannot get source code of a function in runtime by calling <code>.toString()</code> of the function.
+            You need another way to get the source code of the function.
+        </p>
+
+        <p>
+            One way to get source code of a function in runtime is,
+            that you copy the original JavaScript file into the deployment/distribution directory.
+            Then you use <code>fetch</code> to get the origin file as runtime.
+            For example:
+        </p>
+        <div id="demo-fetch-origin">
+            <pre><code class="example-javascript language-javascript"></code></pre>
+        </div>
+        <p>
+            Take a look in <a href="minify-code.html">Minify code</a> and
+            <a href="./minify-code.js" target="_blank">minify-code.js</a> for details.
+        </p>
+    </section>
+
     <section id="i-want-more">
         <h2>I want more</h2>
         <p><i>Syntax highlight</i>
             Maybe you are thinking "But your examples are colorful, I want it too!".
             Yes, you can do it. See <a href="syntax-highlight.html">Syntax highlight</a> for more.
         </p>
-        <p><i>With minify</i>
-            This case is more complicated, because you lose the source code of demo functions,
-            so you have to copy the dem functions to productive server,
-            then make a <code>fetch</code> to get content of the origin JavaScript file.
-            You can then call <code>parseExampleFunctions</code> to get an array of demo functions.
-            See <a href="minify-code.html">Minify code</a> for more information.
-        </p>
     </section>
-
 </main>
 
 <footer class="container">
