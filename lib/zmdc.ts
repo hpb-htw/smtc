@@ -53,23 +53,23 @@ export function parseExampleFunctions(code: string): Example[] {
                 state.inFunction = true;
                 state.fnName = matched.groups!["fnName"];
                 // @ts-ignore
-                state.fnModify = matched.groups!["level"] || "";
+                state.fnModify = matched.groups!["level"];
             }
         }
         if (state.inFunction) {
-            functionLines.push(line);
+            state.fnLines.push(line);
             const {openCurly, closeCurly} = countCurly(line);
             state.openCurly += openCurly;
             state.closeCurly += closeCurly;
             if (state.openCurly === state.closeCurly) {
+                example.push(parseCode( state) );
                 // reset state
-                example.push(parseCode( functionLines, state.fnName) );
                 state.inFunction = false;
                 state.openCurly = 0;
                 state.closeCurly = 0;
                 state.fnName = "";
                 state.fnModify = "";
-                functionLines = [];
+                state.fnLines = [];
             }
         }
     }
@@ -114,7 +114,8 @@ export function showExampleCode(example:Example, fmt: Formatter = {js:htmlEscape
     }
 }
 
-export function parseCode(functionLines:string[], name:string):Example {
+export function parseCode( state:ParsingFunctionState ):Example {
+    const functionLines = state.fnLines;
     const FUNCTION_INDENT_SIZE = 4;
     const js = [];
     const html = [];
@@ -133,7 +134,7 @@ export function parseCode(functionLines:string[], name:string):Example {
         }
     }
     const elId = parseElId(functionLines[1]);
-    return {js: js.join('\n'), html: html.join('\n'), elId, name};
+    return {js: js.join('\n'), html: html.join('\n'), elId, name:state.fnName};
 }
 
 function parseElId(line:string) {
