@@ -75,10 +75,7 @@ test("recognize demo functions", () => {
     const fnSign = [
         ["// tag: Simple", "Simple"],
         ["//tag:async-fn", "async-fn"],
-        ["//    tag:    export", "export"],
-        /*["//", "BothModify"],
-        ["export async function* demoAsyncGenerator()", "AsyncGenerator"],
-        ["return async function* demoAsyncGenerator()", "AsyncGenerator"],*/
+        ["//    tag:    export", "export"]
     ];
     for(const [sign, name] of fnSign ) {
         console.log(sign)
