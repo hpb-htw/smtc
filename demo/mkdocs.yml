@@ -34,5 +34,5 @@ theme:
 
 
 extra_css:
-  - demo/demo.css
+  - lib/demo.css
   - static/extra.css
