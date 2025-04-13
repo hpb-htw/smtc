@@ -14,6 +14,9 @@ window.Prism = Prism;
         demoUsageTextFormatFunction();
         await showDemoCode('index.js');
         verifyContentOfFanyDemo();
+        if(window.Prism) {
+            window.Prism.highlightAll();
+        }
     });
 //}
 
@@ -57,8 +60,8 @@ function howtoMarkDemoInfo() {
         // <span id="ff-result">
     }
     // <div id="fancy-demo">
-    //     <pre><code class="example-javascript"></code><pre>
-    //     <pre><code class="example-html"></code></pre>
+    //     <pre><code class="language-javascript"></code><pre>
+    //     <pre><code class="language-html"></code></pre>
     // </div>
 }
 
@@ -87,12 +90,12 @@ function verifyContentOfFanyDemo() {
         const div = document.getElementById(id);
         const code = div.querySelector(bySelector).innerHTML;
         const verify = document.getElementById(verifyId);
-        verify.querySelector(bySelector).innerText = code;
+        verify.querySelector(bySelector).innerHTML = code;
     }
 
     // <div id="duplicate-fancy-demo">
-    //    <pre><code class="example-javascript language-javascript"></code></pre>
-    //    <pre><code class="example-html language-html"></code></pre>
+    //    <pre><code class="language-javascript"></code></pre>
+    //    <pre><code class="language-html"></code></pre>
     // </div>
     showCode(JS_EXAMPLE_EL_QUERY);
     showCode(HTML_EXAMPLE_EL_QUERY);
