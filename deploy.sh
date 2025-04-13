@@ -39,7 +39,7 @@ deploy() {
     git -C ${DOC_REPO} status .
     rm -rf ${DOC_REPO}/*
     # copy manual doc to $DOC_REPO
-    cp -rfL ${DEMO}/www/* ${DOC_REPO}
+    cp -rfL ${DEMO}/site/* ${DOC_REPO}
     # copy coverage to $DOC_REPO
     cp -rf coverage ${DOC_REPO}
     git -C ${DOC_REPO} add --all

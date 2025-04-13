@@ -9,14 +9,16 @@ export default defineConfig({
     base:"./",
     mode: "production",
     build: {
-        outDir: "www",
+        lib: {
+            entry: {
+                "index":resolve(__dirname, "./lib/index.js"),
+                "syntax-highlight": resolve(__dirname, "./lib/syntax-highlight.js"),
+            },
+            cssFileName: "demo",
+            name: "demo"
+        },
+        outDir: "docs/lib",
         emptyOutDir: true,
-        rollupOptions: {
-            input: {
-                index: resolve(__dirname, 'index.html'),
-                syntaxHighlight: resolve(__dirname, 'syntax-highlight.html'),
-                minifyCode: resolve(__dirname, 'minify-code.html')
-            }
-        }
+        sourcemap: true
     },
 })

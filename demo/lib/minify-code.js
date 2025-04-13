@@ -1,4 +1,4 @@
-import {parseExampleFunctions, showExampleCode} from "../dist/zmdc.js";
+import {parseExampleFunctions, showExampleCode} from "../../dist/zmdc.js";
 
 export async function demoFetchOrigin() {
     // tag: demo-fetch-origin
