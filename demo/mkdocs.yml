@@ -31,6 +31,9 @@ theme:
   favicon: ./favicon.svg
   features:
     - navigation.indexes
+    - navigation.expand
+    - navigation.tabs
+    - toc.integrate
 
 
 extra_css:

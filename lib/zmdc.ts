@@ -1,7 +1,7 @@
 import type {CurlyMatch, Example, Formatter, HtmlCommentCandidate, ParsingFunctionState} from "./types.js";
 
-export const JS_EXAMPLE_EL_QUERY = 'code[class*="example-javascript"]';
-export const HTML_EXAMPLE_EL_QUERY = 'code[class*="example-html"]';
+export const JS_EXAMPLE_EL_QUERY = 'code[class*="language-javascript"]';
+export const HTML_EXAMPLE_EL_QUERY = 'code[class*="language-html"]';
 //export const DEMO_INDICATOR = /^((?<level>(export|return))\s+)?(async(\s+))?function(\*?)(\s+)demo(?<fnName>\w+)(\s)*\(/m;
 export const DEMO_BLOCK_INDICATOR = /^\/\/(\s*)tag:(\s*)(?<name>(\w+[\w\-_]*))/m;
 
