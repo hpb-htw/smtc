@@ -4,8 +4,8 @@
   "description": "Demo Zeig mir den Code",
   "type": "module",
   "scripts": {
-    "build": "npx vite build; mkdocs build; cp README.md lib/*.js site/",
-    "clean": "rm -rf site; rm -rf docs/lib"
+    "build": "npx vite build; mkdir -p docs/code; cp lib/*.js docs/code ; mkdocs build; cp README.md site/",
+    "clean": "rm -rf site; rm -rf docs/code/* ; rm -rf docs/lib/"
   },
   "author": "Hong-Phuc Bui",
   "license": "MIT",

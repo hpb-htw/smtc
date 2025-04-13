@@ -24,7 +24,9 @@ a[target="_blank"]:after {
     font-family: system-ui, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, Helvetica, Arial, "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
-
+code[class*=language-],pre[class*=language-]{
+    color: #474747;
+}
 
 pre[class*=language] {
     border-radius: 0;

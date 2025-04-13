@@ -117,7 +117,7 @@ For example:
     <pre><code class="language-javascript"></code></pre>
 </div>
 
-Now the div with id="fancy-demo" has the following content:
+Now the element `<div id="fancy-demo">` contains following contents:
 
 <div id="duplicate-fancy-demo">
     <ul>

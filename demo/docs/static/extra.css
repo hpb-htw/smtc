@@ -17,8 +17,8 @@
     /*
     --md-code-bg-color: #e8e8e8;
     */
-    --md-code-bg-color: #f0fff0;
-    --md-code-hl-comment-color: #00aaff;
+    --md-code-bg-color: rgba(252, 245, 226, 0.95);
+    /*--md-code-hl-comment-color: #00aaff;*/
 
     /* use Ianeo Rot für Header
     --md-default-fg-color--light: #E5352D;

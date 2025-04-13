@@ -12,7 +12,8 @@ window.Prism = Prism;
 //{
     document.addEventListener("DOMContentLoaded", async () => {
         demoUsageTextFormatFunction();
-        await showDemoCode('index.js');
+        const MYSELF = 'code/index.js'
+        await showDemoCode(MYSELF);
         verifyContentOfFanyDemo();
         if(window.Prism) {
             window.Prism.highlightAll();

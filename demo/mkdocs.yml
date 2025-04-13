@@ -2,7 +2,8 @@ site_name: ZmdC
 #site_url: https://hpb-htw.github.io/zmdc-doc/
 
 nav:
-  - Index: index.md
+  - User Manual: index.md
+  - Github: https://github.com/hpb-htw/zmdc
 
 markdown_extensions:
   - toc # table of content
@@ -29,6 +30,7 @@ theme:
   language: en
   name: material
   favicon: ./favicon.svg
+  logo: ./favicon.svg
   features:
     - navigation.indexes
     - navigation.expand
