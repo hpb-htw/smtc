@@ -86,8 +86,8 @@ test('parseExampleFunction should recognize more than one demoFunction', () =>{
 test('showExampleCode should insert example code as HTML into container', () => {
     const container = `
 <div id="demo-1">
-    <pre><code class="example-javascript lang-js"></code></pre>
-    <pre><code class="example-html lang-html"></code></pre>
+    <pre><code class="language-javascript lang-js"></code></pre>
+    <pre><code class="language-html lang-html"></code></pre>
 </div>    
     `;
     const example:Example = {
@@ -107,8 +107,8 @@ test('showExampleCode should insert example code as HTML into container', () => 
 test('showExampleCode should throw error when no container is found', ({ expect }) => {
     const container = `
 <div id="demo-1">
-    <pre><code class="example-javascript lang-js"></code></pre>
-    <pre><code class="example-html lang-html"></code></pre>
+    <pre><code class="language-javascript lang-js"></code></pre>
+    <pre><code class="language-html lang-html"></code></pre>
 </div>    
     `;
     const example:Example = {
@@ -128,7 +128,7 @@ test('showExampleCode should throw error if no js container found', () => {
     const container = `
 <div id="demo-1">
     <pre><code class="example-js lang-js"></code></pre>
-    <pre><code class="example-html lang-html"></code></pre>
+    <pre><code class="language-html lang-html"></code></pre>
 </div>    
     `;
     const example:Example = {
@@ -147,7 +147,7 @@ test('showExampleCode should throw error if no js container found', () => {
 test('showExampleCode should throw error if no html container found', () => {
     const container = `
 <div id="demo-1">
-    <pre><code class="example-javascript"></code></pre>    
+    <pre><code class="language-javascript"></code></pre>    
 </div>    
     `;
     const example:Example = {
