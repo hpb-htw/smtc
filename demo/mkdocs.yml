@@ -4,6 +4,7 @@ site_name: ZmdC
 nav:
   - User Manual: index.md
   - Github: https://github.com/hpb-htw/zmdc
+  - Coverage: https://hpb-htw.github.io/zmdc-doc/coverage
 
 markdown_extensions:
   - toc # table of content
